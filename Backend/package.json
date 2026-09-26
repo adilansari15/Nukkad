@@ -25,7 +25,11 @@
   "scripts": {
   
     
-  "start": "nodemon ./src/index.js"
+  "build": "rimraf dist && cpy \"src/**/*\" dist",
+  
+    
+  "dev": "nodemon ./src/index.js",
+  "start": "node ./src/index.js"
   
   },
   
@@ -34,7 +38,13 @@
   "devDependencies": {
   
     
-  "nodemon": "^3.1.14"
+  "cpy-cli": "^7.0.0",
+  
+    
+  "nodemon": "^3.1.14",
+  
+    
+  "rimraf": "^6.1.3"
   
   }
 }
