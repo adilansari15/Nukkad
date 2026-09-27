@@ -6,6 +6,9 @@
   "@clerk/express": "^2.1.72",
   
     
+  "@imagekit/nodejs": "^7.12.1",
+  
+    
   "cors": "^2.8.6",
   
     
@@ -15,10 +18,16 @@
   "express": "^5.2.1",
   
     
+  "imagekit": "^6.0.0",
+  
+    
   "mongodb": "^7.6.0",
   
     
-  "mongoose": "^9.10.2"
+  "mongoose": "^9.10.2",
+  
+    
+  "multer": "^2.4.0"
   
   },
   
@@ -29,6 +38,8 @@
   
     
   "dev": "nodemon ./src/index.js",
+  
+    
   "start": "node ./src/index.js"
   
   },

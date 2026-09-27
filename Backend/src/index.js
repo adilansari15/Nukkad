@@ -5,9 +5,10 @@ import path from "path";
 import fs from "fs";
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
-import { clerkMiddleware,  } from '@clerk/express'
+import { clerkMiddleware, } from '@clerk/express'
 import clerkWebhook from "./webhooks/clerk.webhook.js";
-import router from "./routes/auth.route.js";
+import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "../src/routes/message.route.js"
 
 
 const app = express();
@@ -19,7 +20,7 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 const publicDir = path.join(process.cwd(), "public");
 
 
-app.use("/api/webhooks/clerk", express.raw({type: "application/json"}), clerkWebhook);
+app.use("/api/webhooks/clerk", express.raw({ type: "application/json" }), clerkWebhook);
 
 
 app.use(express.json());
@@ -34,6 +35,9 @@ app.get("/health", (req, res) => {
     console.log("Health endpoint hit");
     res.status(200).json({ ok: true });
 })
+
+app.use("/api/auth", authRoutes)
+app.use("/api/message", messageRoutes)
 
 if (fs.existsSync(publicDir)) {
     app.use(express.static(publicDir));
