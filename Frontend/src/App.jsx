@@ -1,28 +1,22 @@
-import "./App.css";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/clerk-react";
+import { ThemeProvider } from './context/ThemeContext';
+import { WallpaperProvider } from './context/WallpaperContext';
+import ChatPage from './pages/ChatPage';
+import AuthPage from './pages/AuthPage';
+import {Routes, Route, Navigate} from 'react-router-dom';
+import { useAuth } from '@clerk/clerk-react';
+
 
 function App() {
+  const {isLoaded, isSignedIn, } = useAuth();
   return (
-    <div>
-      <h1>Login</h1>
-
-      <header>
-        <SignedOut>
-          <SignInButton mode="modal" />
-          <SignUpButton mode="modal" />
-        </SignedOut>
-
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </header>
-    </div>
+    <ThemeProvider>
+      <WallpaperProvider>
+        <Routes>
+          <Route path="/" element={isSignedIn ? <ChatPage /> : <Navigate to="/auth" replace/>} />
+          <Route path="/auth" element={!isSignedIn ? <AuthPage />: <Navigate to="/ChatPage" replace/>} />
+        </Routes>
+      </WallpaperProvider>
+    </ThemeProvider>
   );
 }
 
